@@ -1,5 +1,4 @@
 var Asteroid = require("./asteroid.js");
-var Util = require("./util.js");
 
 function Game () {
   this.asteroids = [];

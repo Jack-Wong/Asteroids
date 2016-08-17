@@ -1,5 +1,6 @@
 var Game = require("./game.js");
 
+
 function GameView (game, ctx) {
   this.game = game;
   this.ctx = ctx;

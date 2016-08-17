@@ -45,26 +45,16 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var MovingObject = __webpack_require__(1);
-	var Util = __webpack_require__(2);
-	var Asteroid = __webpack_require__(3);
 	var Game = __webpack_require__(4);
 	var GameView = __webpack_require__(5);
 
-	// var obj = new MovingObject({ pos: [30,30], vel: [10,10], radius: 5, color: "red"});
-	// var canvas = document.getElementById("circle");
-	// var ctx = canvas.getContext("2d");
-	// obj.draw(ctx);
-	 // var canvas = document.getElementById("game-canvas");
-	 // var ctx = canvas.getContext("2d");
-	 // asteroid.draw(ctx);
+	document.addEventListener("DOMContentLoaded", function () {
+	 var canvas = document.getElementById("game-canvas");
+	 var ctx = canvas.getContext("2d");
 
-	 document.addEventListener("DOMContentLoaded", function () {
-	   var canvas = document.getElementById("game-canvas");
-	   var ctx = canvas.getContext("2d");
-
-	   var game = new Game();
-	   new GameView(game, ctx).start();
-	 });
+	 var games = new Game();
+	 new GameView(games, ctx).start();
+	});
 
 
 /***/ },
@@ -144,8 +134,8 @@
 	  options.radius = 25;
 	  options.color = "black";
 	  options.vel = Util.randomVec(5);
-	  options.pos = options.pos || Game.randomPosition();
-
+	  options.pos = options.pos || options.game.randomPosition();
+	console.log(options);
 	  MovingObject.call(this, options);
 	}
 
@@ -159,7 +149,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Asteroid = __webpack_require__(3);
-	var Util = __webpack_require__(2);
 
 	function Game () {
 	  this.asteroids = [];
@@ -202,6 +191,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Game = __webpack_require__(4);
+
 
 	function GameView (game, ctx) {
 	  this.game = game;
