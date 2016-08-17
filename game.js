@@ -22,13 +22,13 @@ Game.prototype.randomPosition = function () {
 
 Game.prototype.draw = function(ctx) {
   ctx.clearRect(0, 0, Game.DIM_X, Game.DIM_Y);
-  asteroids.forEach(function (aster) {
+  this.asteroids.forEach(function (aster) {
     aster.draw(ctx);
   });
 };
 
 Game.prototype.moveObjects = function (ms) {
-  asteroids.forEach(function (aster) {
+  this.asteroids.forEach(function (aster) {
     aster.move(ms);
   });
 };
