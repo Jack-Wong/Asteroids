@@ -7,6 +7,7 @@ function Asteroid (options) {
   options.color = "black";
   options.vel = Util.randomVec(5);
   options.pos = options.pos || options.game.randomPosition();
+  
   MovingObject.call(this, options);
 }
 

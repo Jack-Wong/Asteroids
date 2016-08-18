@@ -1,8 +1,10 @@
+
 function MovingObject (options) {
   this.pos = options.pos;
   this.vel = options.vel;
   this.radius = options.radius;
   this.color = options.color;
+  this.game = options.game;
 }
 
 MovingObject.prototype.draw = function (ctx) {
@@ -22,7 +24,23 @@ MovingObject.prototype.draw = function (ctx) {
 MovingObject.prototype.move = function (ms) {
   x = this.pos[0] + (this.vel[0] * (ms * (60 / 1000)));
   y = this.pos[1] + (this.vel[1] * (ms * (60 / 1000)));
-  this.pos = [x, y];
+
+  this.pos = this.game.wrap([x, y]);
+};
+
+MovingObject.prototype.isCollideWith = function (otherObject) {
+  var x = this.pos[0] - otherObject.pos[0];
+  var y= this.pos[1] - otherObject.pos[1];
+  var hypotenuse = Math.sqrt((x * x) + (y * y));
+  if (hypotenuse < 50) {
+    return true;
+  }
+  return false;
+};
+
+MovingObject.prototype.collideWith = function (otherObject) {
+  this.game.remove(this);
+  this.game.remove(otherObject);
 };
 
 module.exports = MovingObject;
