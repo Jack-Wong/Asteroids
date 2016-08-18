@@ -265,10 +265,18 @@
 
 	GameView.prototype.start = function () {
 	  function animate() {
+	    this.bindKeyHandlers();
 	    this.game.draw(this.ctx);
 	    this.game.step();
 	  }
 	  setInterval(animate.bind(this), 20);
+	};
+
+	GameView.prototype.bindKeyHandlers = function () {
+	  key(up, function() {ship.power([0, -1]);});
+	  key(down, function() {ship.power([0, 1]);});
+	  key(left, function() {ship.power([-1, 0]);});
+	  key(right, function() {ship.power([1, 0]);});
 	};
 
 	module.exports = GameView;
@@ -295,6 +303,13 @@
 	  this.pos = this.game.randomPosition();
 	  this.vel = [0, 0];
 	};
+
+	Ship.prototype.power = function (impulse) {
+	  x = this.vel[0] + impulse[0];
+	  y = this.vel[1] + impulse[1];
+	  this.vel = [x, y];
+	};
+
 
 	Util.inherits(Ship, MovingObject);
 

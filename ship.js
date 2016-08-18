@@ -16,6 +16,13 @@ Ship.prototype.relocate = function () {
   this.vel = [0, 0];
 };
 
+Ship.prototype.power = function (impulse) {
+  x = this.vel[0] + impulse[0];
+  y = this.vel[1] + impulse[1];
+  this.vel = [x, y];
+};
+
+
 Util.inherits(Ship, MovingObject);
 
 
