@@ -14,7 +14,6 @@ function Asteroid (options) {
 
 Asteroid.prototype.collideWith = function (otherObject) {
   console.log(otherObject);
-  
   if (otherObject instanceof Ship) {
     otherObject.relocate();
   }

@@ -205,9 +205,14 @@
 	  this.checkCollisions();
 	};
 
-	Game.prototype.remove = function (asteroid) {
-	  this.asteroids.splice(this.asteroids.indexOf(asteroid), 1);
-	};
+	Game.prototype.remove = function (obj) {
+	  if (obj instanceof Asteroid) {
+	    this.asteroids.splice(this.asteroids.indexOf(obj), 1);
+	  } else if (obj instanceof Ship) {
+	    this.ships.splice(this.ships.indexOf(obj), 1);
+	  } else if (obj instanceof Bullet) {
+	    this.bullet.splice(this.bullet.indexOf(obj), 1);
+	  }};
 
 	module.exports = Game;
 
@@ -232,7 +237,6 @@
 
 	Asteroid.prototype.collideWith = function (otherObject) {
 	  console.log(otherObject);
-	  
 	  if (otherObject instanceof Ship) {
 	    otherObject.relocate();
 	  }
@@ -252,7 +256,6 @@
 	    function Surrogate () {}
 	    Surrogate.prototype = parentClass.prototype;
 	    childClass.prototype = new Surrogate ();
-	    childClass.prototype.constructor = childClass;
 	  }
 	};
 
