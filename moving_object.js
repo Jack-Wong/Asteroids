@@ -1,4 +1,3 @@
-
 function MovingObject (options) {
   this.pos = options.pos;
   this.vel = options.vel;
@@ -39,8 +38,8 @@ MovingObject.prototype.isCollideWith = function (otherObject) {
 };
 
 MovingObject.prototype.collideWith = function (otherObject) {
-  this.game.remove(this);
-  this.game.remove(otherObject);
+  // this.game.remove(this);
+  // this.game.remove(otherObject);
 };
 
 module.exports = MovingObject;

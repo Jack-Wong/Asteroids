@@ -8,8 +8,6 @@ function Bullet (options) {
   MovingObject.call(this, options);
 }
 
-
-
 Util.inherits(Bullet, MovingObject);
 
 module.exports = Bullet;

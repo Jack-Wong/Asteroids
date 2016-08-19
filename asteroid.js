@@ -12,13 +12,13 @@ function Asteroid (options) {
   MovingObject.call(this, options);
 }
 
+Util.inherits(Asteroid, MovingObject);
+
 Asteroid.prototype.collideWith = function (otherObject) {
-  console.log(otherObject);
   if (otherObject instanceof Ship) {
     otherObject.relocate();
   }
 };
 
-Util.inherits(Asteroid, MovingObject);
 
 module.exports = Asteroid;

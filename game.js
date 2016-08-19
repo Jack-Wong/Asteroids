@@ -14,7 +14,7 @@ function Game () {
 
 Game.DIM_X = 500;
 Game.DIM_Y = 500;
-Game.NUM_ASTERIODS = 1;
+Game.NUM_ASTERIODS = 10;
 
 Game.prototype.allObjects = function () {
   return this.asteroids.concat(this.ships);
@@ -79,7 +79,6 @@ Game.prototype.checkCollisions = function () {
       var obj2 = this.allObjects()[j];
       if (obj1 !== obj2 && obj1.isCollideWith(obj2)) {
         obj1.collideWith(obj2);
-        // alert("COLLISION");
       }
     }
   }

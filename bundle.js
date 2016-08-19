@@ -46,7 +46,7 @@
 
 	var MovingObject = __webpack_require__(1);
 	var Game = __webpack_require__(2);
-	var GameView = __webpack_require__(5);
+	var GameView = __webpack_require__(7);
 
 	document.addEventListener("DOMContentLoaded", function () {
 	 var canvas = document.getElementById("game-canvas");
@@ -61,7 +61,6 @@
 /* 1 */
 /***/ function(module, exports) {
 
-	
 	function MovingObject (options) {
 	  this.pos = options.pos;
 	  this.vel = options.vel;
@@ -102,8 +101,8 @@
 	};
 
 	MovingObject.prototype.collideWith = function (otherObject) {
-	  this.game.remove(this);
-	  this.game.remove(otherObject);
+	  // this.game.remove(this);
+	  // this.game.remove(otherObject);
 	};
 
 	module.exports = MovingObject;
@@ -114,8 +113,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var Asteroid = __webpack_require__(3);
-	var Ship = __webpack_require__(6);
-	var Bullet = __webpack_require__(7);
+	var Ship = __webpack_require__(5);
+	var Bullet = __webpack_require__(6);
 	var MovingObject = __webpack_require__(1);
 
 	function Game () {
@@ -129,7 +128,7 @@
 
 	Game.DIM_X = 500;
 	Game.DIM_Y = 500;
-	Game.NUM_ASTERIODS = 1;
+	Game.NUM_ASTERIODS = 10;
 
 	Game.prototype.allObjects = function () {
 	  return this.asteroids.concat(this.ships);
@@ -194,7 +193,6 @@
 	      var obj2 = this.allObjects()[j];
 	      if (obj1 !== obj2 && obj1.isCollideWith(obj2)) {
 	        obj1.collideWith(obj2);
-	        // alert("COLLISION");
 	      }
 	    }
 	  }
@@ -224,7 +222,7 @@
 	var Util = __webpack_require__(4);
 	var MovingObject = __webpack_require__(1);
 	var Game = __webpack_require__(2);
-	var Ship = __webpack_require__(6);
+	var Ship = __webpack_require__(5);
 
 	function Asteroid (options) {
 	  options.radius = 25;
@@ -235,14 +233,14 @@
 	  MovingObject.call(this, options);
 	}
 
+	Util.inherits(Asteroid, MovingObject);
+
 	Asteroid.prototype.collideWith = function (otherObject) {
-	  console.log(otherObject);
 	  if (otherObject instanceof Ship) {
 	    otherObject.relocate();
 	  }
 	};
 
-	Util.inherits(Asteroid, MovingObject);
 
 	module.exports = Asteroid;
 
@@ -256,6 +254,7 @@
 	    function Surrogate () {}
 	    Surrogate.prototype = parentClass.prototype;
 	    childClass.prototype = new Surrogate ();
+	    childClass.prototype.constructor = childClass;
 	  }
 	};
 
@@ -279,37 +278,6 @@
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Game = __webpack_require__(2);
-	var Ship = __webpack_require__(6);
-
-	function GameView (game, ctx) {
-	  this.game = game;
-	  this.ctx = ctx;
-	}
-
-	GameView.prototype.start = function () {
-	  function animate() {
-	    this.bindKeyHandlers();
-	    this.game.draw(this.ctx);
-	    this.game.step();
-	  }
-	  setInterval(animate.bind(this), 20);
-	};
-
-	GameView.prototype.bindKeyHandlers = function () {
-	  key("w", function() {ship.power([0, -1]);});
-	  key("s", function() {ship.power([0, 1]);});
-	  key("a", function() {ship.power([-1, 0]);});
-	  key("d", function() {ship.power([1, 0]);});
-	};
-
-	module.exports = GameView;
-
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Game = __webpack_require__(2);
@@ -352,7 +320,7 @@
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Util = __webpack_require__(4);
@@ -365,11 +333,40 @@
 	  MovingObject.call(this, options);
 	}
 
-
-
 	Util.inherits(Bullet, MovingObject);
 
 	module.exports = Bullet;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Game = __webpack_require__(2);
+	var Ship = __webpack_require__(5);
+
+	function GameView (game, ctx) {
+	  this.game = game;
+	  this.ctx = ctx;
+	}
+
+	GameView.prototype.start = function () {
+	  function animate() {
+	    this.bindKeyHandlers();
+	    this.game.draw(this.ctx);
+	    this.game.step();
+	  }
+	  setInterval(animate.bind(this), 20);
+	};
+
+	GameView.prototype.bindKeyHandlers = function () {
+	  key("w", function() {ship.power([0, -1]);});
+	  key("s", function() {ship.power([0, 1]);});
+	  key("a", function() {ship.power([-1, 0]);});
+	  key("d", function() {ship.power([1, 0]);});
+	};
+
+	module.exports = GameView;
 
 
 /***/ }
