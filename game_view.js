@@ -1,4 +1,5 @@
 var Game = require("./game.js");
+var Ship = require("./ship.js");
 
 function GameView (game, ctx) {
   this.game = game;
@@ -15,10 +16,10 @@ GameView.prototype.start = function () {
 };
 
 GameView.prototype.bindKeyHandlers = function () {
-  key(up, function() {ship.power([0, -1]);});
-  key(down, function() {ship.power([0, 1]);});
-  key(left, function() {ship.power([-1, 0]);});
-  key(right, function() {ship.power([1, 0]);});
+  key("w", function() {ship.power([0, -1]);});
+  key("s", function() {ship.power([0, 1]);});
+  key("a", function() {ship.power([-1, 0]);});
+  key("d", function() {ship.power([1, 0]);});
 };
 
 module.exports = GameView;

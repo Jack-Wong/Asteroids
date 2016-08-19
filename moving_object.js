@@ -32,14 +32,15 @@ MovingObject.prototype.isCollideWith = function (otherObject) {
   var x = this.pos[0] - otherObject.pos[0];
   var y= this.pos[1] - otherObject.pos[1];
   var hypotenuse = Math.sqrt((x * x) + (y * y));
-  if (hypotenuse < 50) {
+  if (hypotenuse < (this.radius + otherObject.radius)) {
     return true;
   }
   return false;
 };
 
 MovingObject.prototype.collideWith = function (otherObject) {
-
+  this.game.remove(this);
+  this.game.remove(otherObject);
 };
 
 module.exports = MovingObject;

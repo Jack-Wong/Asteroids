@@ -1,15 +1,17 @@
 var Game = require("./game.js");
-var Util = require("./util.js");
 var MovingObject = require("./moving_object.js");
+var Util = require("./util.js");
 
 function Ship (options) {
   options.radius = 15;
   options.color = "black";
   options.vel = [0, 0];
-  option.pos = options.game.randomPosition();
+  options.pos = options.game.randomPosition();
 
   MovingObject.call(this, options);
 }
+
+Util.inherits(Ship, MovingObject);
 
 Ship.prototype.relocate = function () {
   this.pos = this.game.randomPosition();
@@ -22,8 +24,14 @@ Ship.prototype.power = function (impulse) {
   this.vel = [x, y];
 };
 
-
-Util.inherits(Ship, MovingObject);
-
+Ship.prototype.fireBullet = function () {
+  var bullet = new Bullet({
+    pos: this.pos,
+    color: this.color,
+    vel: this.vel,
+    game: this.game
+  });
+  this.game.add(bullet);
+};
 
 module.exports = Ship;
